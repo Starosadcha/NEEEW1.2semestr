@@ -6,22 +6,25 @@ public class NewBehaviourScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float moveSpeed = 3f ;
+    public float moveSpeed = 3f;
     public float sprintMultiplier = 3f;
-    public float jumpForce = 10f ;
+    public float jumpForce = 10f;
     public int maxJumps = 2;
-    
+
 
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
+    public Sprite standSprite;
+    public Sprite crouchSprite;
 
     public GroundChecker groundChecker;
 
-    public float moveInput ;
-    private bool isJump ;
+    public float moveInput;
+    private bool isJump;
     private int jumpCount;
     private bool isSprinting;
-   
+    private bool isCrouching;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,7 +36,18 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         moveInput = Input.GetAxis("Horizontal");
-    
+
+        isCrouching = Input.GetKey(KeyCode.LeftControl);
+
+        if (isCrouching)
+        {
+            spriteRenderer.sprite = crouchSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = standSprite;
+        }
+
 
         isSprinting = Input.GetKey(KeyCode.LeftShift);
 
@@ -77,6 +91,6 @@ public class NewBehaviourScript : MonoBehaviour
             isJump = false;
         }
     }
-    
-    
+
+
 }
