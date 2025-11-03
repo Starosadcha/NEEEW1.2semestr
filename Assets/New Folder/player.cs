@@ -14,6 +14,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
 
     public GroundChecker groundChecker;
 
@@ -26,6 +27,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         jumpCount = 0;
     }
 
@@ -40,6 +42,11 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isJump = true;
+            animator.SetBool("isJump", true);
+        }
+        else
+        {
+            animator.SetBool("isJump", false);
         }
 
 
@@ -57,6 +64,27 @@ public class NewBehaviourScript : MonoBehaviour
         {
             jumpCount = 0;
         }
+
+        if (moveInput!=0)
+        {
+            animator.SetBool("isRun", true);
+        }
+        else
+        {
+            animator.SetBool("isRun", false);
+        }
+
+
+        if (isSprinting)
+        {
+            animator.SetBool("isSprint", true);
+        }
+        else
+        {
+            animator.SetBool("isSprint", false);
+        }
+
+
     }
 
     private void FixedUpdate()
