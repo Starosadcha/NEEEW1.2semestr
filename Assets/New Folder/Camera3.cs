@@ -12,7 +12,9 @@ public class Camera3 : MonoBehaviour
     private void LateUpdate()
     {
         float direction = Input.GetAxisRaw("Horizontal");
-        Vector3 targetPos = transform.position + new Vector3(direction * lookAheadDistance, 0, -10);
+        Vector3 targetPos = target.position + new Vector3(direction * lookAheadDistance, 0,
+           -10);
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
+
     }
 }

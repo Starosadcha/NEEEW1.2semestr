@@ -11,7 +11,7 @@ public class Camera2 : MonoBehaviour
     void LateUpdate()
     {
         Vector3 targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
-        target.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
     }
 }
 
