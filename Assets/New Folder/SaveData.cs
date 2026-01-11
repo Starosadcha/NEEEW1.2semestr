@@ -9,4 +9,6 @@ public class SaveData
     public float[] position;
     public int health;
     public int coins;
+
+    public Vector3[] coinsPositions;
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
@@ -38,8 +38,8 @@ public class PlayerSave : MonoBehaviour
     {
         messageText.text = msg;
         messageText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f); // ???? 2 ???????
-        messageText.gameObject.SetActive(false); // ????????
+        yield return new WaitForSeconds(2f); 
+        messageText.gameObject.SetActive(false); 
     }
 
     public void Save()
