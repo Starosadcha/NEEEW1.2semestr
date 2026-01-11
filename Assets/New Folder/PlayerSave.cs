@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class PlayerSave : MonoBehaviour
 {
-    public int health = 100;
-    public int coins = 0;
+    private PlayerStats playerStats;
+    [SerializeField] private TMP_Text messageText;
+
+    private void Awake()
+    {
+        playerStats = GetComponent<PlayerStats>();
+        if (messageText != null)
+            messageText.gameObject.SetActive(false);
+    }
 
     void Update()
     {
@@ -20,19 +28,33 @@ public class PlayerSave : MonoBehaviour
             Load();
         }
     }
+    private void ShowMessage(string msg)
+    {
+        if (messageText != null)
+            StartCoroutine(ShowMessageCoroutine(msg));
+    }
+
+    private IEnumerator ShowMessageCoroutine(string msg)
+    {
+        messageText.text = msg;
+        messageText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f); // ???? 2 ???????
+        messageText.gameObject.SetActive(false); // ????????
+    }
+
     public void Save()
     {
         SaveData data = new SaveData();
-        data.health = health;
-        data.coins = coins;
         data.position = new float[]
         {
             transform.position.x,
             transform.position.y,
            transform.position.z
         };
+        data.health = playerStats.GetHealth();
+        data.coins = CoinManager.Instance.GetCoins();
         SaveSystem.Save(data);
-        Debug.Log("Game Saved");
+        ShowMessage("Game Saved!");
 
     }
     public void Load()
@@ -48,8 +70,8 @@ public class PlayerSave : MonoBehaviour
             data.position[1],
             data.position[2]
             );
-        health = data.health;
-        coins = data.coins;
-        Debug.Log("Game loaded");
+        playerStats.SetHealth(data.health);
+        CoinManager.Instance.SetCoins(data.coins);
+        ShowMessage("Game Loaded!");
     }
 }
