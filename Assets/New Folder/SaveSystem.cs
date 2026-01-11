@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SaveSystem : MonoBehaviour
+public class SaveSystem 
 {
     private static string fileName = "savegame.json";
     private static string GetPath()
